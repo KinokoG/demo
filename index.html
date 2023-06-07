@@ -83,13 +83,13 @@
 
         #project-intro {
             background-color: #222;
-            padding: 1em 2em;   
+            padding: 1em 2em;
             border-radius: 10px;
             color: #eee;
             line-height: 1.5;
             margin-bottom: 1em
         }
-        
+
         #project-intro h2 {
             color: #fff;
             margin-bottom: 1em;
@@ -145,7 +145,7 @@
                 <audio id="audio" style="display:none;"></audio> -->
 
             <video id="video" style="width: 100%;" controls preload="auto">
-                <source src="https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/video.mp4" type="video/mp4">
+                <source src="https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/video1.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
@@ -168,7 +168,7 @@
                     onclick="changeAudioWithButtonState('https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/bach.wav', this)">Modern
                     Piano</button>
                 <button
-                    onclick="changeAudioWithButtonState('https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/result.wav', this)">Fortepiano</button>
+                    onclick="changeAudioWithButtonState('https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/result1.wav', this)">Fortepiano</button>
 
 
             </div>
@@ -190,6 +190,31 @@
                 }
             }
 
+            // video.addEventListener('play', function () {
+            //     if (audio.readyState < 3 || video.readyState < 3) {
+            //         var audioPromise = new Promise(function (resolve) {
+            //             audio.oncanplaythrough = resolve;
+            //         });
+            //         var videoPromise = new Promise(function (resolve) {
+            //             video.oncanplaythrough = resolve;
+            //         });
+            //         Promise.all([audioPromise, videoPromise]).then(function () {
+            //             syncPlayback();
+            //             setTimeout(function () {
+            //                 audio.play();
+            //             }, 0);
+            //             setTimeout(function () {
+            //                 video.play();
+            //             }, 900);
+            //         });
+            //         video.pause();
+            //     } else {
+            //         setTimeout(function () {
+            //             audio.play();
+            //         }, 0);
+            //     }
+            // });
+
             video.addEventListener('play', function () {
                 if (audio.readyState < 3 || video.readyState < 3) {
                     var audioPromise = new Promise(function (resolve) {
@@ -200,18 +225,12 @@
                     });
                     Promise.all([audioPromise, videoPromise]).then(function () {
                         syncPlayback();
-                        setTimeout(function () {
-                            audio.play();
-                        }, 0);
-                        setTimeout(function () {
-                            video.play();
-                        }, 900);
+                        audio.play();
+                        video.play();
                     });
                     video.pause();
                 } else {
-                    setTimeout(function () {
-                        audio.play();
-                    }, 0);
+                    audio.play();
                 }
             });
 
@@ -221,6 +240,7 @@
 
             video.addEventListener('volumechange', function () {
                 audio.volume = video.volume;
+                audio.muted = video.muted;
             });
 
             video.addEventListener('seeked', function () {
@@ -322,7 +342,7 @@
 
 
 
-            changeAudio('https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/result.wav');
+            changeAudio('https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/result1.wav');
 
             // new listeners for video and audio
             video.addEventListener('waiting', function () {
@@ -354,7 +374,7 @@
                     if (e.target.textContent.trim() === 'Modern Piano') {
                         changeAudio('https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/bach.wav');
                     } else if (e.target.textContent.trim() === 'Fortepiano') {
-                        changeAudio('https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/result.wav');
+                        changeAudio('https://demo-piano1.obs.ap-southeast-1.myhuaweicloud.com/result1.wav');
                     }
                 }
             });
